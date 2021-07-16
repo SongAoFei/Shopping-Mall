@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}总订单{% endblock %}
+{% block content %}
+    <div class="about" style="margin-top: -50px;">
+        <div class="container">
+            <div class="register">
+                <h1 class="title" style="margin-left: -30px">我的订单</h1>
+            </div>
+            <div class="register">
+                <table class="hovertable">
+                    <p>
+                        地址：{{ address }}
+                    </p>
+                    <p>
+                        电话：{{ phone }}
+                    </p>
+                    <tr>
+                        <th></th>
+                        <th>编号</th>
+                        {#				<th>图片</th>#}
+                        <th>名称</th>
+                        <th>单价</th>
+                        <th>数量</th>
+                        <th></th>
+                    </tr>
+                    {% for i in orders %}
+                        <form action="{% url 'orders' %}" method="post">{% csrf_token %}
+                            <input name="ordersGoodsId" value="{{ i.goods.id }}" hidden>
+                            <tr onmouseover="this.style.backgroundColor='skyblue';"
+                                onmouseout="this.style.backgroundColor='#d4e3e5';">
+                                <td><input type="checkbox"></td>
+                                <td>{{ forloop.counter }}</td>
+                                {#                <td><img style="width: 60px;height: 60px;" src={{ i.goods.picture }}></td>#}
+                                <td><a href="{% url 'order' id=i.order.id %}">{{ i.goods.name }}</a></td>
+                                <td>{{ i.goods.price }}</td>
+                                <td>{{ i.count }}</td>
+                                <td><input style="font-size: 20px; border: 0px;" type="submit" value="删除"></td>
+                            </tr>
+                        </form>
+                    {% endfor %}
+                </table>
+                <br>
+                <div class="page-not-found" style="float: left; margin-top: 20px">
+                    <a href="">支付</a>&nbsp;
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

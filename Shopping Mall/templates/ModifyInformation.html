@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}修改信息{% endblock %}
+{% block content %}
+    <div class="about" style="margin-top: -50px;">
+        <form method="post">
+            {% csrf_token %}
+            <P style="color: red">请选择对应的用户</P>
+            <table>{{ ModifyInformationForm.as_table }}</table>
+            <input type="submit" value="提交">
+        </form>
+    </div>
+{% endblock %}

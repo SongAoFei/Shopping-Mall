@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}用户中心{% endblock %}
+{% block content %}
+    <div class="about">
+        <div class="container">
+            <div class="about">
+                {% for i in userData1 %}
+                    <p>用户名：<span><a>{{ i.username }}</a></span></p>
+                    <p>邮箱：<span><a>{{ i.email }}</a></span></p>
+                {% endfor %}
+                {% for j in userData2 %}
+                    <p>地址：<span><a>{{ j.address }}</a></span></p>
+                    <p>电话：<span><a>{{ j.phone }}</a></span></p>
+
+                    </div>
+                    <div class="page-not-found">
+                    <table>
+                    <tbody>
+                    <tr>
+                    <th><a href="{% url 'myCarts' %}">购物车</a>&nbsp;</th>
+                    <th><a href="{% url 'orders' %}">订单</a>&nbsp;</th>
+                    <th><a href="{% url 'AddInformation' %}">添加信息</a>&nbsp;</th>
+                    <th><a href="{% url 'ModifyInformation' id=j.id %}">修改信息</a>&nbsp;</th>{% endfor %}
+                </tr>
+                </tbody>
+                </table>
+                {% if request.user.is_superuser %}
+                    <table style="margin-top: 30px">
+                        <tbody>
+                        <tr>
+                            <th><a href="{% url 'createGoods' %}">添加商品</a>&nbsp;</th>
+                            <th><a href="#">修改商品</a>&nbsp;</th>
+                            <th><a href="#">删除商品</a>&nbsp;</th>
+                        </tr>
+                        </tbody>
+                    </table>
+                {% endif %}
+                </div>
+        </div>
+    </div>
+{% endblock %}

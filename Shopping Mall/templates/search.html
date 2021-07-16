@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block title %}搜索{% endblock %}
+{% block content %}
+    <div class="about">
+        {% if goodsList %}
+            <h1>商品</h1>
+            {% for goods in pageList %}
+                <div class="top_grid2">
+                    <div class="col-md-4 top_grid1-box1"><a href="/showGoods/{{ goods.id }}">
+                        <div class="grid_1">
+                            <div class="b-link-stroke b-animate-go  thickbox">
+                                <img src="{{ goods.picture.url }}" class="img-responsive" alt="{{ goods.name }}"
+                                     style="height: 210px;"/>
+                            </div>
+                            <div class="grid_2">
+                                <p>{{ goods.name }}</p>
+                                <ul class="grid_2-bottom">
+                                    <li class="grid_2-left"><p>{{ goods.price }}¥</p></li>
+                                    <li class="grid_2-right">
+                                        <div class="btn btn-primary btn-normal btn-inline " target="_self"
+                                             title="购买">
+                                            购买
+                                        </div>
+                                    </li>
+                                    <div class="clearfix"></div>
+                                </ul>
+                            </div>
+                        </div>
+                    </a></div>
+                </div>
+                {% if forloop.counter in lis %}
+                    <div class="clearfix"></div>
+                {% endif %}
+            {% endfor %}
+            <div class="clearfix"></div><br><br>
+            <div>
+                <div>
+        <span style="font-size: 20px;">
+			{% if pageList.has_previous %}
+                <a href="/search/{{ pageList.previous_page_number }}"><button>上一页</button></a>
+            {% endif %}
+            {% for pagenum in pageList.paginator.page_range %}
+                {% if pagenum == pageList.number %}
+                    <a href="" style="color: dodgerblue"><button><b>{{ pagenum }}</b></button></a>
+                {% else %}
+                    <a href="/search/{{ pagenum }}"><button>{{ pagenum }}</button></a>
+                {% endif %}
+            {% endfor %}
+            {% if pageList.has_next %}
+                <a href="/search/{{ pageList.next_page_number }}"><button>下一页</button></a>
+            {% else %}
+                <a href="/search/"><button>首页</button></a>
+            {% endif %}
+        </span>
+                </div>
+            </div>
+        {% else %}
+            <p>{{ msg }}</p>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}我的购物车{% endblock %}
+{% block content %}
+    <div class="about" style="margin-top: -50px;">
+        <div class="container">
+        <div class="register">
+            <h1 class="title" style="margin-left: -30px">购物车</h1>
+        </div>
+        <div class="register">
+            <table class="hovertable">
+			<tr>
+				<th></th>
+				<th>编号</th>
+				<th>名称</th>
+				<th>单价</th>
+				<th>数量</th>
+				<th></th>
+			</tr>
+                {% for goodsCart in goodsOrders %}
+            <form action="{% url 'myCarts' %}" method="post">{% csrf_token %}
+                <input hidden name="goodsCartId" value={{ goodsCart.id }}>
+			<tr onmouseover="this.style.backgroundColor='skyblue';" onmouseout="this.style.backgroundColor='#d4e3e5';">
+				<td><input type="checkbox"></td>
+				<td>{{ forloop.counter }}</td>
+                <td><a href="{% url 'Cart' id=goodsCart.id %}">{{ goodsCart.goods.name }}</a></td>
+                <td>{{ goodsCart.goods.price }}¥</td>
+                <td>{{ goodsCart.count }}</td>
+                <input name="goodsId" value="{{ goodsCart.id }}" hidden>
+				<td><input style="font-size: 20px; border: 0px;" type="submit" value="删除"></td>
+			</tr>
+            </form>
+                {% endfor %}
+		</table><br>
+            <div class="page-not-found" style="float: left; margin-top: 20px">
+            <a href="{% url 'home' %}">继续购物</a>&nbsp;
+{#            <a href="{% url 'orders' %}">生成订单</a>&nbsp;#}
+        </div>
+
+                <form action="{% url 'orders' %}" method="get" style="margin-top: 10px;margin-left: 50px;">{% csrf_token %}
+                    <input name="goOrders" value="goOrders" hidden>
+                    <input type="submit" value="生成订单" style="color: #fff;background: #df1f26;text-decoration: none;
+                                                   padding: 15px 40px;font: 300 16px/16px Lato, sans-serif; border: 0px;">
+                </form>
+
+        </div>
+    </div>
+    </div>
+{% endblock %}

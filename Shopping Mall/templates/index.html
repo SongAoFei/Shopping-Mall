@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}首页{% endblock %}
+{% block banner %}
+    <div class="slider">
+        <div class="callbacks_container">
+            <ul class="rslides" id="slider">
+                <li><img src="{% static 'images/banner1.jpg' %}" class="img-responsive" alt=""/>
+                    <div class="banner_desc">
+                        <h1>全球暢銷</h1>
+                        <h2>歡迎加入我們</h2>
+                    </div>
+                </li>
+                <li><img src="{% static 'images/banner2.jpg' %}" class="img-responsive" alt=""/>
+                    <div class="banner_desc">
+                        <h1>各式服裝歡迎選購</h1>
+                        <h2>只有你想不到，沒有買不到的</h2>
+                    </div>
+                </li>
+                <li><img src="{% static 'images/banner3.jpg' %}" class="img-responsive" alt=""/>
+                    <div class="banner_desc">
+                        <h1>現在下單立減100%</h1>
+                        <h2>難以置信</h2>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}
+{% block menu %}
+    {% include 'menu.html' %}
+{% endblock %}
+{% block content %}
+    <div class="col-md-9 content_right">
+        <h4 class="head"><span class="m_2">熱門</span> 产品</h4>
+        {% if page %}
+            {% for goods in homepageList %}
+                <div class="top_grid2">
+                    <div class="col-md-4 top_grid1-box1"><a href="/showGoods/{{ goods.id }}/">
+                        <div class="grid_1">
+                            <div class="b-link-stroke b-animate-go  thickbox">
+                                <img src="{{ goods.picture.url }}" class="img-responsive" alt="{{ goods.name }}"
+                                     style="height: 210px;"/>
+                            </div>
+                            <div class="grid_2">
+                                {#                                <p>{{ goods.describe }}</p> 详细信息#}
+                                <p>{{ goods.name }}</p>
+                                <ul class="grid_2-bottom">
+                                    <li class="grid_2-left"><p>{{ goods.price }}¥</p></li>
+                                    <li class="grid_2-right">
+                                        <div class="btn btn-primary btn-normal btn-inline " target="_self"
+                                             title="购买">
+                                            购买
+                                        </div>
+                                    </li>
+                                    <div class="clearfix"></div>
+                                </ul>
+                            </div>
+                        </div>
+                    </a></div>
+                </div>
+                {% if forloop.counter in lis %}
+                    <div class="clearfix"></div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div class="col-md-9 content_right">
+        <hr>
+        <hr>
+        <div>
+        <span style="font-size: 20px;">
+			{% if homepageList.has_previous %}
+                <a href="/home/{{ homepageList.previous_page_number }}"><button>上一页</button></a>
+            {% endif %}
+            {% for pagenum in homepageList.paginator.page_range %}
+                {% if pagenum == homepageList.number %}
+                    <a href="" style="color: dodgerblue"><button><b>{{ pagenum }}</b></button></a>
+                {% else %}
+                    <a href="/home/{{ pagenum }}"><button>{{ pagenum }}</button></a>
+                {% endif %}
+            {% endfor %}
+            {% if homepageList.has_next %}
+                <a href="/home/{{ homepageList.next_page_number }}"><button>下一页</button></a>
+            {% else %}
+                <a href="{% url 'home' %}"><button>首页</button></a>
+            {% endif %}
+        </span>
+        </div>
+    </div>
+{% endblock %}

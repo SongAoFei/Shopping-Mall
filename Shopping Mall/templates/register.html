@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block title %}注册{% endblock %}
+{% block content %}
+    <div class="about">
+        <div class="container">
+            <div class="register">
+                    <div class="register-top-grid">
+                        <h3>用户注册</h3>
+                        <form action="{% url 'register' %}" method="post">
+                            {% csrf_token %}
+                        <div>
+                            <span>用户名<label>*</label>&nbsp;&nbsp;&nbsp;<strong style="color: red">{{ errors }}</strong></span>
+                            <input type="text" name="username" oninvalid="checkInput_username(this)" required pattern=".{2,25}">
+                        </div>
+                        <div>
+                            <span>密码<label>*</label></span>
+                            <input type="password" name="password" oninvalid="checkInput_password(this)" required style="border: 1px solid #EEE;
+                            outline-color:#FF5B36;width: 96%;font-size: 1em;padding: 0.5em;" pattern=".{6,25}">
+                        </div>
+                        <div>
+                            <span>邮箱<label>*</label></span>
+                            <input type="text" name="email" oninvalid="checkInput_email(this)" required pattern="(\w){1,17}(@)(\w){2,5}(\.)(\w){2,3}">
+                        </div>
+                        <div class="register-but" style="clear: both">
+                            <input type="submit" value="注册">
+                        </div>
+                        </form>
+                        <script>
+                            function checkInput_username(inputs) {
+                            if (inputs.value.length == 0) {
+                                inputs.setCustomValidity("请输入用户名！");
+                            } else if (inputs.value.length < 2) {
+                                inputs.setCustomValidity("输入内容不得少于2个字符！");
+                            } else if (inputs.value.length > 25) {
+                                inputs.setCustomValidity("输入内容不得大于25个字符！");
+                            } else {
+                                inputs.setCustomValidity("");
+                            }
+                        };
+
+                        function checkInput_password(inputs) {
+                            if (inputs.value.length == 0) {
+                                inputs.setCustomValidity("请输入邮箱！");
+                            } else if (inputs.value.length < 6) {
+                                inputs.setCustomValidity("输入内容不得少于6个字符！");
+                            } else if (inputs.value.length > 25) {
+                                inputs.setCustomValidity("输入内容不得大于25个字符！");
+                            } else {
+                                inputs.setCustomValidity("");
+                            }
+                        };
+
+                        function checkInput_email(inputs) {
+                            if (inputs.value.length == 0) {
+                                inputs.setCustomValidity("请输入密码！");
+                            } else if (inputs.value.length < 8) {
+                                inputs.setCustomValidity("输入内容不得少于8个字符！");
+                            } else if (inputs.value.length > 25) {
+                                inputs.setCustomValidity("输入内容不得大于25个字符！");
+                            } else {
+                                inputs.setCustomValidity("");
+                            }
+                        };
+
+                        </script>
+                        <div class="clearfix"></div>
+                    </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

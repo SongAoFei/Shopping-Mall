@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}订单{% endblock %}
+{% block content %}
+    <div class="about" style="margin-top: -50px;">
+        <div class="container">
+            <div class="register">
+                <h1 class="title" style="margin-left: -30px">订单</h1>
+            </div>
+            <div class="register">
+                <table class="hovertable">
+                    <p>
+                        地址：{{ address }}
+                    </p>
+                    <p>
+                        电话：{{ phone }}
+                    </p>
+                    <tr>
+                        <th>图片</th>
+                        <th>名称</th>
+                        <th>单价</th>
+                        <th>详情</th>
+                    </tr>
+                    {% for i in order %}
+                        <tr onmouseover="this.style.backgroundColor='skyblue';"
+                            onmouseout="this.style.backgroundColor='#d4e3e5';">
+                            <td><img style="width: 60px;height: 60px;" src={{ i.goods.picture }}></td>
+                            <td>{{ i.goods.name }}</td>
+                            <td>{{ i.goods.price }}¥</td>
+                            <td>{{ i.goods.describe }}</td>
+                        </tr>
+                    {% endfor %}
+
+                </table>
+                <br>
+                <div class="page-not-found" style="float: left; margin-top: 20px">
+                    <a href="">支付</a>&nbsp;
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}

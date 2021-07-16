@@ -1,0 +1,96 @@
+{% load static %}
+<div class="header">
+  <div class="header_top">
+    <div class="container">
+      <div class="logo">
+        <a href="{% url 'home' %}"
+          ><img src="{% static 'images/logo.png' %}" alt=""
+        /></a>
+      </div>
+      <ul class="shopping_grid">
+        {% if request.user.is_active %} {% if request.user.is_superuser %}
+        <a href="{% url 'userCenter' %}">
+          <li>{{ user.username }}</li>
+        </a>
+        <a href="{% url 'userCenter' %}">
+          <li>后台管理</li>
+        </a>
+        <a href="{% url 'logout' %}">
+          <li>注销</li>
+        </a>
+        <a href="{% url 'orders' %}">
+          <li>订单</li>
+        </a>
+        <a href="{% url 'myCarts' %}">
+          <li>
+            <span class="m_1">Shopping Bag</span>&nbsp;&nbsp;(数量) &nbsp;<img
+              src="{% static 'images/bag.png' %}"
+              alt=""
+            />
+          </li>
+        </a>
+        <div class="clearfix"></div>
+        {% else %}
+        <a href="{% url 'userCenter' %}">
+          <li>{{ user.username }}</li>
+        </a>
+        <a href="{% url 'logout' %}">
+          <li>注销</li>
+        </a>
+        <a href="{% url 'orders' %}">
+          <li>订单</li>
+        </a>
+        <a href="{% url 'myCarts' %}">
+          <li><span class="m_1">购物包</span>&nbsp;&nbsp;({{ goodsOrders.count }}) &nbsp;<img
+                                    src="{% static 'images/bag.png' %}" alt=""/></li>
+        </a>
+        <div class="clearfix"></div>
+        {% endif %} {% else %}
+        <a href="{% url 'register' %}">
+          <li>注册</li>
+        </a>
+        <a href="{% url 'login' %}">
+          <li>登录</li>
+        </a>
+        <a href="{% url 'myCarts' %}">
+          <li>
+            <span class="m_1">购物包</span>&nbsp;&nbsp;(0) &nbsp;<img
+              src="{% static 'images/bag.png' %}"
+              alt=""
+            />
+          </li>
+        </a>
+        <div class="clearfix"></div>
+        {% endif %}
+      </ul>
+      <div class="clearfix"></div>
+    </div>
+  </div>
+  <div class="h_menu4">
+    <!-- start h_menu4 -->
+    <div class="container">
+      <a class="toggleMenu" href="#">菜單</a>
+      <ul class="nav">
+        <li class="active">
+          <a href="{% url 'home' %}" data-hover="Home">首页</a>
+        </li>
+        {% comment %}
+        <li><a href="about.html" data-hover="About Us">About Us</a></li>
+        <li><a href="careers.html" data-hover="Careers">Careers</a></li>
+        <li><a href="contact.html" data-hover="Contact Us">Contact Us</a></li>
+        <li>
+          <a href="404.html" data-hover="Company Profile">Company Profile</a>
+        </li>
+        <li>
+          <a href="register.html" data-hover="Company Registration"
+            >Company Registration</a
+          >
+        </li>
+        <li><a href="wishlist.html" data-hover="Wish List">Wish List</a></li>
+        {% endcomment %}
+      </ul>
+      <script type="text/javascript" src="{% static 'js/nav.js' %}"></script>
+    </div>
+    <!-- end h_menu4 -->
+  </div>
+</div>

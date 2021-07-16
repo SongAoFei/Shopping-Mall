@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block title %}登录{% endblock %}
+{% block content %}
+    <div class="about">
+        <div class="container">
+            <div class="register">
+                <div class="col-md-6 login-left">
+                    <h3>新客户</h3>
+                    <p>在我们的商店创建一个帐户，您将能够完成结帐过程
+                         更快，存储多个送货地址，在您的帐户中查看和跟踪您的订单以及
+                         更多的。</p>
+                    <a class="acount-btn" href="{% url 'register' %}">创建一个帐户</a>
+                </div>
+                <div class="col-md-6 login-right">
+                    <h5>{{ msg }}</h5>
+                    <h3>用户登录</h3>
+                    <p>如果您有我们的帐户，请登录。</p>
+                    <form action="{% url 'login' %}?next={{ geturl }}" method="post">
+                        {% csrf_token %}
+                        <div>
+                            <input type="hidden" name='geturl' value={{ geturl }}>
+                            <span>用户名<label>*</label></span>
+                            <input type="text" name="username" oninvalid="checkInput_username(this)" required
+                                   pattern=".{2,25}">
+                        </div>
+                        <div>
+                            <span>密码<label>*</label></span>
+                            <input type="password" name="password" oninvalid="checkInput_password(this)" required
+                                   pattern=".{6,25}" style="border: 1px solid #EEE;
+                            outline-color:#FF5B36;width: 96%;font-size: 1em;padding: 0.5em;">
+                        </div>
+                        <a class="forgot" href="#">忘记密码了吗？</a>
+                        <input type="submit" value="登录">
+                    </form>
+                    <script>
+                        function checkInput_username(inputs) {
+                            if (inputs.value.length == 0) {
+                                inputs.setCustomValidity("请输入用户名！");
+                            } else if (inputs.value.length < 2) {
+                                inputs.setCustomValidity("输入内容不得少于2个字符！");
+                            } else if (inputs.value.length > 25) {
+                                inputs.setCustomValidity("输入内容不得大于25个字符！");
+                            } else {
+                                inputs.setCustomValidity("");
+                            }
+                        };
+
+                        function checkInput_password(inputs) {
+                            if (inputs.value.length == 0) {
+                                inputs.setCustomValidity("请输入密码！");
+                            } else if (inputs.value.length < 6) {
+                                inputs.setCustomValidity("输入内容不得少于6个字符！");
+                            } else if (inputs.value.length > 25) {
+                                inputs.setCustomValidity("输入内容不得大于25个字符！");
+                            } else {
+                                inputs.setCustomValidity("");
+                            }
+                        };
+
+                    </script>
+                    <div><h3 style="color: red">{{ errors }}</h3></div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
